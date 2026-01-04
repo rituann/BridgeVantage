@@ -72,75 +72,83 @@ export function CulturalSyncPairings({ employees }: CulturalSyncPairingsProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        {topPairings.length === 0 ? (
-          <div className="text-center py-6 text-muted-foreground">
-            No suitable pairings found at this time
-          </div>
-        ) : (
-          topPairings.map((pairing, index) => (
-            <div
-              key={`${pairing.senior.id}-${pairing.junior.id}`}
-              className="flex items-center gap-4 rounded-lg border bg-card p-4"
-              data-testid={`pairing-row-${index}`}
-            >
-              <div className="flex-1 flex items-center gap-3">
-                <Avatar className="h-10 w-10 border-2 border-amber-500/30">
-                  <AvatarFallback className="bg-amber-500/10 text-amber-600 font-semibold text-sm">
-                    {pairing.senior.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="min-w-0">
-                  <p className="font-medium text-sm truncate" data-testid={`text-senior-${index}`}>
-                    {pairing.senior.name}
-                  </p>
-                  <div className="flex items-center gap-1.5">
-                    <Badge variant="outline" className="text-xs px-1.5">
-                      {pairing.senior.tenure}y
-                    </Badge>
-                    <span className="text-xs text-muted-foreground truncate">
-                      {pairing.senior.department}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-1 px-2">
-                <div className="flex items-center gap-1">
-                  <div className="h-1 w-1 rounded-full bg-accent animate-pulse" />
-                  <div className="h-0.5 w-6 bg-accent/50" />
-                  <ArrowLeftRight className="h-4 w-4 text-accent" />
-                  <div className="h-0.5 w-6 bg-accent/50" />
-                  <div className="h-1 w-1 rounded-full bg-accent animate-pulse" />
-                </div>
-                <Badge variant="secondary" className="text-xs" data-testid={`badge-connection-${index}`}>
-                  {pairing.connectionScore}%
-                </Badge>
-              </div>
-
-              <div className="flex-1 flex items-center justify-end gap-3">
-                <div className="min-w-0 text-right">
-                  <p className="font-medium text-sm truncate" data-testid={`text-junior-${index}`}>
-                    {pairing.junior.name}
-                  </p>
-                  <div className="flex items-center justify-end gap-1.5">
-                    <span className="text-xs text-muted-foreground truncate">
-                      {pairing.junior.department}
-                    </span>
-                    <Badge variant="outline" className="text-xs px-1.5">
-                      L{pairing.junior.level}
-                    </Badge>
-                  </div>
-                </div>
-                <Avatar className="h-10 w-10 border-2 border-accent/30">
-                  <AvatarFallback className="bg-accent/10 text-accent font-semibold text-sm">
-                    {pairing.junior.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
+      <CardContent>
+        <div className="flex flex-col gap-4">
+          {topPairings.length === 0 ? (
+            <div className="text-center py-6 text-muted-foreground">
+              No suitable pairings found at this time
             </div>
-          ))
-        )}
+          ) : (
+            topPairings.map((pairing, index) => (
+              <div
+                key={`${pairing.senior.id}-${pairing.junior.id}`}
+                className="flex items-center justify-between rounded-lg border bg-card p-5 overflow-hidden relative"
+                data-testid={`pairing-row-${index}`}
+              >
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <Avatar className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full border-2 border-amber-500/30">
+                    <AvatarFallback className="bg-amber-500/10 text-amber-600 font-semibold text-sm">
+                      {pairing.senior.name.slice(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0 overflow-hidden">
+                    <p 
+                      className="font-medium text-sm whitespace-nowrap overflow-hidden text-ellipsis" 
+                      data-testid={`text-senior-${index}`}
+                    >
+                      {pairing.senior.name}
+                    </p>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <Badge variant="outline" className="text-xs px-1.5">
+                        {pairing.senior.tenure}y
+                      </Badge>
+                      <span className="text-xs text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis">
+                        {pairing.senior.department}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-shrink-0 flex-grow-0 basis-[120px] flex flex-col items-center gap-1 text-center">
+                  <div className="flex items-center gap-1">
+                    <div className="h-1 w-1 rounded-full bg-accent animate-pulse" />
+                    <div className="h-0.5 w-6 bg-accent/50" />
+                    <ArrowLeftRight className="h-4 w-4 text-accent" />
+                    <div className="h-0.5 w-6 bg-accent/50" />
+                    <div className="h-1 w-1 rounded-full bg-accent animate-pulse" />
+                  </div>
+                  <Badge variant="secondary" className="text-xs" data-testid={`badge-connection-${index}`}>
+                    {pairing.connectionScore}%
+                  </Badge>
+                </div>
+
+                <div className="flex items-center gap-3 flex-1 min-w-0 justify-end">
+                  <div className="min-w-0 overflow-hidden text-right">
+                    <p 
+                      className="font-medium text-sm whitespace-nowrap overflow-hidden text-ellipsis" 
+                      data-testid={`text-junior-${index}`}
+                    >
+                      {pairing.junior.name}
+                    </p>
+                    <div className="flex items-center justify-end gap-1.5 flex-wrap">
+                      <span className="text-xs text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis">
+                        {pairing.junior.department}
+                      </span>
+                      <Badge variant="outline" className="text-xs px-1.5">
+                        L{pairing.junior.level}
+                      </Badge>
+                    </div>
+                  </div>
+                  <Avatar className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full border-2 border-accent/30">
+                    <AvatarFallback className="bg-accent/10 text-accent font-semibold text-sm">
+                      {pairing.junior.name.slice(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </CardContent>
     </Card>
   );
