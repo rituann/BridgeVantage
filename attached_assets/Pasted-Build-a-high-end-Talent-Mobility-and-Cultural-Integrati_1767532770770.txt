@@ -1,0 +1,59 @@
+Build a high-end Talent Mobility and Cultural Integration platform called BridgeVantage.
+
+1. DATABASE & 10-PERSON DATASET: Create a PostgreSQL database and seed it with exactly these 10 records:
+
+Robert: Dept: 'Legacy Ops', Tenure: 18y, Level: 3, Skills: {Mechanical: 9, Precision: 9, IoT: 2}, Risk: 'Underutilized'.
+
+Maya: Dept: 'Automation', Tenure: 2y, Level: 6, Skills: {AI: 9, Python: 8, Domain_Wisdom: 3}, Risk: 'Needs Context'.
+
+Elena: Dept: 'Legacy Ops', Tenure: 22y, Level: 4, Skills: {QA: 10, Safety: 9}, Risk: 'High Flight Risk'.
+
+James: Dept: 'Digital Sys', Tenure: 1y, Level: 4, Skills: {Cloud: 8, Security: 7}.
+
+David: Dept: 'Automation', Tenure: 4y, Level: 5, Skills: {Robotics: 8, Legacy_Mechanics: 6}.
+
+Sarah: Dept: 'Digital Sys', Tenure: 3y, Level: 3, Skills: {Analytics: 7, UX: 6}.
+
+Frank: Dept: 'Legacy Ops', Tenure: 15y, Level: 2, Skills: {Tooling: 9}.
+
+Chloe: Dept: 'Automation', Tenure: 1y, Level: 3, Skills: {Design: 8}.
+
+Tom: Dept: 'Digital Sys', Tenure: 8y, Level: 5, Skills: {Cyber: 9}.
+
+Lisa: Dept: 'Legacy Ops', Tenure: 12y, Level: 3, Skills: {Supply_Chain: 8}.
+
+2. THE UI SHELL & ROLE SWITCHER:
+
+Navigation: Fixed sidebar with 'Dashboard' and 'Skill Map'.
+
+The Switcher: In the top-right corner of the header, place two clearly labeled toggle buttons: [View as Employee: Robert] and [View as Talent Manager].
+
+Switching roles should instantly swap the dashboard widgets without a full page reload (use conditional rendering).
+
+3. VIEW A: EMPLOYEE (Robert's Perspective):
+
+Skill Radar: A Chart.js radar showing Robert's high legacy skills vs. low digital skills.
+
+Edit My Profile: A form to update 'Digital Literacy' and 'Career Goals'.
+
+The Bridge: A list of 'Reverse Mentorship' recommendations.
+
+Logic: Pair Robert with high-level Automation leads. Show a match score based on (Tenure Difference * 0.4) + (Digital Skill Gap * 0.6).
+
+4. VIEW B: TALENT MANAGER (Intelligence Dashboard):
+
+Retention Heatmap: A visual grid of the 10 employees.
+
+Color 'Red' if the employee is a high-performer (Skills > 8) but stagnant (Level < 4).
+
+Color 'Amber' if Tenure > 15y but Level < 4 (The 'Wisdom Gap').
+
+Cultural Sync List: Display the top 3 recommended 'Senior-Junior' pairings for the whole company.
+
+Silo-Breaker Search: A search bar to find skills across the different departments.
+
+5. DESIGN:
+
+Theme: Clean, modern SaaS. Navy Blue (#0A192F), White cards with soft shadows, and Electric Blue accents.
+
+Ensure that when Robert's profile is edited, the Talent Manager's Heatmap updates the risk scores instantly."
