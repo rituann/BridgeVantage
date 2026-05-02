@@ -3,7 +3,7 @@
 
 Redefining organizational resilience through internal mobility and cross-generational knowledge transfer.
 
-**Live Application:** [BridgeVantage.replit.app](https://BridgeVantage.replit.app/)  
+**Live Application:** [bridgevantage.vercel.app](https://bridgevantage.vercel.app/)  
 **Concept by:** Ritu Ann Roy
 
 ![BridgeVantage Dashboard Screenshot](https://github.com/rituann/BridgeVantage/blob/main/bv%20manager.png)
@@ -55,10 +55,11 @@ The platform calculates the **Talent Mobility Index** using a proprietary ratio:
 
 ## Tech Stack
 
-* **UI/UX:** React.js, Tailwind CSS (Architectural-Standard Typography).
-* **Intelligence:** Python-based Logic Engine for weighted matching and risk calculations.
+* **UI/UX:** React.js, TypeScript, Tailwind CSS (Architectural-Standard Typography).
+* **Backend:** Node.js + Express, serverless via Vercel Functions.
 * **Data Visualization:** Chart.js for real-time Skill Radar mapping and Executive Heatmaps.
-* **Database:** PostgreSQL for persistent storage of 2026 workforce benchmarks and employee "DNA" profiles.
+* **Database:** PostgreSQL (Neon) for persistent storage of 2026 workforce benchmarks and employee "DNA" profiles.
+* **Hosting:** Vercel
 
 ---
 
