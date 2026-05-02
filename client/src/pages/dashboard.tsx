@@ -10,6 +10,7 @@ import { CulturalSyncPairings } from "@/components/cultural-sync-pairings";
 import { SiloBreakerSearch } from "@/components/silo-breaker-search";
 import { ManagerStats } from "@/components/manager-stats";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { Employee } from "@shared/schema";
@@ -45,6 +46,17 @@ export default function Dashboard() {
     },
   });
 
+  const seedMutation = useMutation({
+    mutationFn: () => apiRequest("POST", "/api/seed", {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/employees"] });
+      toast({ title: "Demo data loaded", description: "10 strategic personas have been added." });
+    },
+    onError: () => {
+      toast({ title: "Error", description: "Failed to load demo data.", variant: "destructive" });
+    },
+  });
+
   if (isLoading) {
     return (
       <div className="p-6 lg:p-8 space-y-6">
@@ -63,8 +75,11 @@ export default function Dashboard() {
 
   if (!employees || employees.length === 0) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex flex-col items-center justify-center h-full gap-4">
         <p className="text-muted-foreground">No employee data available</p>
+        <Button onClick={() => seedMutation.mutate()} disabled={seedMutation.isPending}>
+          {seedMutation.isPending ? "Loading..." : "Load Demo Data"}
+        </Button>
       </div>
     );
   }

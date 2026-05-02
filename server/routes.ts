@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { updateEmployeeSchema } from "@shared/schema";
+import { insertEmployeeSchema, updateEmployeeSchema } from "@shared/schema";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -29,6 +29,32 @@ export async function registerRoutes(
     } catch (error) {
       console.error("Error fetching employee:", error);
       res.status(500).json({ error: "Failed to fetch employee" });
+    }
+  });
+
+  app.post("/api/employees", async (req, res) => {
+    try {
+      const parseResult = insertEmployeeSchema.safeParse(req.body);
+      if (!parseResult.success) {
+        return res.status(400).json({ error: "Invalid request body", details: parseResult.error.errors });
+      }
+      const employee = await storage.createEmployee(parseResult.data);
+      res.status(201).json(employee);
+    } catch (error) {
+      console.error("Error creating employee:", error);
+      res.status(500).json({ error: "Failed to create employee" });
+    }
+  });
+
+  app.post("/api/seed", async (_req, res) => {
+    try {
+      const all = await storage.getAllEmployees();
+      for (const e of all) await storage.deleteEmployee(e.id);
+      await storage.seedEmployees();
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error seeding employees:", error);
+      res.status(500).json({ error: "Failed to seed employees" });
     }
   });
 
