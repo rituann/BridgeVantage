@@ -4,7 +4,7 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// api/index.ts
+// api/_server.ts
 import express from "express";
 import { createServer } from "http";
 
@@ -217,7 +217,7 @@ async function registerRoutes(httpServer2, app2) {
   return httpServer2;
 }
 
-// api/index.ts
+// api/_server.ts
 var app = express();
 app.use(
   express.json({

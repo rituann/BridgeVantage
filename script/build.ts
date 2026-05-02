@@ -62,7 +62,7 @@ async function buildAll() {
 
   console.log("building vercel api function...");
   await esbuild({
-    entryPoints: ["api/index.ts"],
+    entryPoints: ["api/_server.ts"],
     platform: "node",
     bundle: true,
     format: "esm",
