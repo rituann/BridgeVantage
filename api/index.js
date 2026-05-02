@@ -148,7 +148,37 @@ var DatabaseStorage = class {
     }
   }
 };
-var storage = process.env.DATABASE_URL ? new DatabaseStorage() : new MemStorage();
+var StorageWithFallback = class {
+  inner;
+  constructor() {
+    this.inner = process.env.DATABASE_URL ? new DatabaseStorage() : new MemStorage();
+  }
+  async seedEmployees() {
+    try {
+      await this.inner.seedEmployees();
+    } catch (err) {
+      console.warn("Primary storage unavailable, switching to in-memory:", err.message);
+      this.inner = new MemStorage();
+      await this.inner.seedEmployees();
+    }
+  }
+  getAllEmployees() {
+    return this.inner.getAllEmployees();
+  }
+  getEmployee(id) {
+    return this.inner.getEmployee(id);
+  }
+  createEmployee(data) {
+    return this.inner.createEmployee(data);
+  }
+  updateEmployee(id, data) {
+    return this.inner.updateEmployee(id, data);
+  }
+  deleteEmployee(id) {
+    return this.inner.deleteEmployee(id);
+  }
+};
+var storage = new StorageWithFallback();
 
 // server/routes.ts
 async function registerRoutes(httpServer2, app2) {

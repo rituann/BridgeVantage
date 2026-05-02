@@ -110,6 +110,28 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage: IStorage = process.env.DATABASE_URL
-  ? new DatabaseStorage()
-  : new MemStorage();
+class StorageWithFallback implements IStorage {
+  private inner: IStorage;
+
+  constructor() {
+    this.inner = process.env.DATABASE_URL ? new DatabaseStorage() : new MemStorage();
+  }
+
+  async seedEmployees(): Promise<void> {
+    try {
+      await this.inner.seedEmployees();
+    } catch (err) {
+      console.warn("Primary storage unavailable, switching to in-memory:", (err as Error).message);
+      this.inner = new MemStorage();
+      await this.inner.seedEmployees();
+    }
+  }
+
+  getAllEmployees() { return this.inner.getAllEmployees(); }
+  getEmployee(id: string) { return this.inner.getEmployee(id); }
+  createEmployee(data: InsertEmployee) { return this.inner.createEmployee(data); }
+  updateEmployee(id: string, data: UpdateEmployee) { return this.inner.updateEmployee(id, data); }
+  deleteEmployee(id: string) { return this.inner.deleteEmployee(id); }
+}
+
+export const storage: IStorage = new StorageWithFallback();
